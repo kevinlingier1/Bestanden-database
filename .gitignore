@@ -1,0 +1,19 @@
+# Ignore virtual environment directories
+.venv/
+include/
+lib/
+Script/
+pywenv.cfg
+
+# Ignore Visual Studio Code specific files
+.vscode/
+
+# Ignore build directories
+build/
+dist/
+
+# Ignore database file backups
+*.db*
+
+# Ignore generated files
+app.spec
