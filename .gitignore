@@ -17,3 +17,4 @@ dist/
 
 # Ignore generated files
 app.spec
+__pycache__
