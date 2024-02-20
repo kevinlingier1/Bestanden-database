@@ -20,9 +20,9 @@ def scan_and_store(directory_entry, drive_name_entry, result_label):
     scan_directory(directory, drive_name, connection)
     result_label.config(text="Mapstructuur succesvol gescand en opgeslagen in de database.")
 
-def choose_directory(directory_entry):
+def choose_directory(directory_entry, parent_window):
     if detect_os() == 'macOS':
-        directory = filedialog.askdirectory(parent=root, title='Kies map')  # Gebruik de juiste methode voor macOS
+        directory = filedialog.askdirectory(parent=parent_window, title='Kies map')  # Gebruik de juiste methode voor macOS
     else:
         directory = filedialog.askdirectory()  # Gebruik de standaardmethode voor andere besturingssystemen
         
@@ -39,7 +39,7 @@ def create_ui():
     directory_entry = ttk.Entry(root, width=40)
     directory_entry.grid(row=1, column=1, padx=10, pady=5)
 
-    choose_button = ttk.Button(root, text="Kies map", command=lambda: choose_directory(directory_entry))
+    choose_button = ttk.Button(root, text="Kies map", command=lambda: choose_directory(directory_entry, root))
     choose_button.grid(row=1, column=2, padx=5, pady=5)
 
     drive_name_label = ttk.Label(root, text="Naam/nummer van schijf:")
@@ -55,6 +55,7 @@ def create_ui():
     result_label.grid(row=4, column=0, columnspan=3, padx=10, pady=5)
 
     root.mainloop()
+
 
 def detect_os():
     if platform.system() == 'Windows':
