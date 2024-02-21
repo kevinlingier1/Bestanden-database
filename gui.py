@@ -9,6 +9,7 @@ from database import create_database, scan_directory  # Importeer de functies cr
 root = None  # Definieer root als een globale variabele buiten de functies
 
 def scan_and_store(directory_entry, drive_name_entry, result_label):
+
     # Definieer de functie scan_and_store met parameters directory_entry, drive_name_entry en result_label
     directory = directory_entry.get()  # Haal de ingevoerde map op uit het directory_entry-widget
     drive_name = drive_name_entry.get()  # Haal de ingevoerde schijfnaam op uit het drive_name_entry-widget
@@ -27,6 +28,7 @@ def choose_directory(directory_entry, parent_window):
     # Definieer de functie choose_directory met parameters directory_entry en parent_window
     if detect_os() == 'macOS':  # Controleer of het besturingssysteem macOS is
         directory = filedialog.askdirectory(parent=parent_window, title='Kies map')  # Gebruik de juiste methode voor macOS om een map te kiezen
+
     else:
         directory = filedialog.askdirectory()  # Gebruik de standaardmethode om een map te kiezen voor andere besturingssystemen
         
@@ -78,6 +80,7 @@ def create_ui():
     root.protocol("WM_DELETE_WINDOW", on_closing)  # Koppel de on_closing-functie aan het sluiten van het hoofdvenster
 
     root.mainloop()  # Start de GUI-lus om het hoofdvenster weer te geven en gebruikersinteractie mogelijk te maken
+
 
 def detect_os():
     # Definieer de functie detect_os om het besturingssysteem te detecteren
