@@ -62,6 +62,4 @@ def detect_os():
     elif platform.system() == 'Darwin':
         return 'macOS'
     else:
-        return 'Unknown'
-
-create_ui()
+        return 'Unknown'  # Retourneer 'Unknown' als het besturingssysteem niet wordt herkend
