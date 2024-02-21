@@ -5,7 +5,6 @@ from tkinter import filedialog  # Importeer de filedialog-submodule van Tkinter 
 import os  # Importeer de os-module voor bestandsbewerkingen
 import platform  # Importeer de platform-module voor informatie over het besturingssysteem
 from database import create_database, scan_directory  # Importeer de functies create_database en scan_directory uit een extern bestand genaamd 'database'
-
 root = None  # Definieer root als een globale variabele buiten de functies
 
 def scan_and_store(directory_entry, drive_name_entry, result_label):
@@ -28,7 +27,6 @@ def choose_directory(directory_entry, parent_window):
     # Definieer de functie choose_directory met parameters directory_entry en parent_window
     if detect_os() == 'macOS':  # Controleer of het besturingssysteem macOS is
         directory = filedialog.askdirectory(parent=parent_window, title='Kies map')  # Gebruik de juiste methode voor macOS om een map te kiezen
-
     else:
         directory = filedialog.askdirectory()  # Gebruik de standaardmethode om een map te kiezen voor andere besturingssystemen
         
@@ -80,7 +78,6 @@ def create_ui():
     root.protocol("WM_DELETE_WINDOW", on_closing)  # Koppel de on_closing-functie aan het sluiten van het hoofdvenster
 
     root.mainloop()  # Start de GUI-lus om het hoofdvenster weer te geven en gebruikersinteractie mogelijk te maken
-
 
 def detect_os():
     # Definieer de functie detect_os om het besturingssysteem te detecteren
