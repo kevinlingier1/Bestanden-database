@@ -6,6 +6,8 @@ import os  # Importeer de os-module voor bestandsbewerkingen
 import platform  # Importeer de platform-module voor informatie over het besturingssysteem
 from database import create_database, scan_directory  # Importeer de functies create_database en scan_directory uit een extern bestand genaamd 'database'
 
+root = None  # Definieer root als een globale variabele buiten de functies
+
 def scan_and_store(directory_entry, drive_name_entry, result_label):
     # Definieer de functie scan_and_store met parameters directory_entry, drive_name_entry en result_label
     directory = directory_entry.get()  # Haal de ingevoerde map op uit het directory_entry-widget
@@ -31,8 +33,19 @@ def choose_directory(directory_entry, parent_window):
     directory_entry.delete(0, tk.END)  # Wis de huidige inhoud van het directory_entry-widget
     directory_entry.insert(0, directory)  # Voeg het geselecteerde map pad toe aan het directory_entry-widget
 
+def reset_fields(directory_entry, drive_name_entry, result_label):
+    directory_entry.delete(0, tk.END)
+    drive_name_entry.delete(0, tk.END)
+    result_label.config(text="")
+
+def on_closing():
+    if tk.messagebox.askokcancel("Afsluiten", "Weet je zeker dat je de applicatie wilt afsluiten?"):
+        root.destroy()
+
 def create_ui():
     # Definieer de functie create_ui om de GUI te maken
+    global root  # Voeg root toe als een globale variabele
+
     root = tk.Tk()  # Maak een nieuw hoofdvenster (Tkinter root-widget)
     root.title("BESTANDEN SCANNER")  # Geef het hoofdvenster een titel
 
@@ -54,8 +67,15 @@ def create_ui():
     scan_button = ttk.Button(root, text="Scan en opslaan", command=lambda: scan_and_store(directory_entry, drive_name_entry, result_label))  # Maak een knop-widget met de tekst "Scan en opslaan" en wijs de functie scan_and_store toe aan de knop
     scan_button.grid(row=3, column=1, pady=10)  # Plaats de knop op rij 3, kolom 1 met padding
 
+    reset_button = ttk.Button(root, text="Reset", command=lambda: reset_fields(directory_entry, drive_name_entry, result_label))
+    reset_button.grid(row=5, column=2, padx=0, pady=10)
+
+
     result_label = ttk.Label(root, text="")  # Maak een label-widget voor het resultaat
     result_label.grid(row=4, column=0, columnspan=3, padx=10, pady=5)  # Plaats het resultaatlabel op rij 4, kolom 0 en strek zich uit over drie kolommen met padding
+
+    root.protocol("WM_DELETE_WINDOW", on_closing)  # Koppel de on_closing-functie aan het sluiten van het hoofdvenster
+    root.protocol("WM_DELETE_WINDOW", on_closing)  # Koppel de on_closing-functie aan het sluiten van het hoofdvenster
 
     root.mainloop()  # Start de GUI-lus om het hoofdvenster weer te geven en gebruikersinteractie mogelijk te maken
 
@@ -66,6 +86,6 @@ def detect_os():
     elif platform.system() == 'Darwin':  # Controleer of het besturingssysteem macOS is
         return 'macOS'  # Retourneer 'macOS' als het besturingssysteem macOS is
     else:
-        return 'Unknown'  # Retourneer 'Unknown' als het besturingssysteem niet wordt herkend
+        return 'Unknown'
 
-create_ui()  # Roep de create_ui-functie aan om de GUI te maken en de applicatie uit te voeren
+create_ui()
